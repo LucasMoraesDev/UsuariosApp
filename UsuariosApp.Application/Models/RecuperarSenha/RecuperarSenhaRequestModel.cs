@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace UsuariosApp.Services.Models.RecuperarSenha
+namespace UsuariosApp.Application.Models.RecuperarSenha
 {
     /// <summary>
     /// Modelo de dados para a requisição do serviço de recuperação de senha do usuário

@@ -1,4 +1,4 @@
-﻿namespace UsuariosApp.Services.Models.Autenticar
+﻿namespace UsuariosApp.Application.Models.Autenticar
 {
     /// <summary>
     /// Modelo de dados para o retorno do serviço de autenticação de conta do usuário

@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace UsuariosApp.Services.Models.Autenticar
+namespace UsuariosApp.Application.Models.Autenticar
 {
     /// <summary>
     /// Modelo de dados para a requisição do serviço de autenticação de conta do usuário

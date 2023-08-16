@@ -1,4 +1,4 @@
-﻿namespace UsuariosApp.Services.Models.CriarConta
+﻿namespace UsuariosApp.Application.Models.CriarConta
 {
     /// <summary>
     /// Modelo de dados para a resposta do serviço de criação de conta do usuário

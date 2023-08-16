@@ -1,3 +1,16 @@
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+using UsuariosApp.Application.Interfaces;
+using UsuariosApp.Application.Services;
+using UsuariosApp.Domain.Interfaces.Repositories;
+using UsuariosApp.Domain.Interfaces.Security;
+using UsuariosApp.Domain.Interfaces.Services;
+using UsuariosApp.Domain.Services;
+using UsuariosApp.Infra.Data.Repositories;
+using UsuariosApp.Security.Services;
+using UsuariosApp.Security.Settings;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -8,6 +21,35 @@ builder.Services.AddRouting(config => config.LowercaseUrls = true);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+//mapear as injeções de dependência do projeto
+builder.Services.AddTransient<IUsuarioAppService, UsuarioAppService>();
+builder.Services.AddTransient<IUsuarioDomainService, UsuarioDomainService>();
+builder.Services.AddTransient<IUsuarioRepository, UsuarioRepository>();
+builder.Services.AddTransient<IHistoricoAtividadeRepository, HistoricoAtividadeRepository>();
+builder.Services.AddTransient<ITokenSecurity, TokenSecurity>();
+
+//mapear as configurações de autenticação do projeto
+builder.Services.AddAuthentication(
+    auth =>
+    {
+        auth.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+        auth.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+    }).AddJwtBearer(
+        bearer =>
+        {
+            bearer.RequireHttpsMetadata = false;
+            bearer.SaveToken = true;
+            bearer.TokenValidationParameters = new TokenValidationParameters
+            {
+                ValidateIssuerSigningKey = true,
+                IssuerSigningKey = new SymmetricSecurityKey
+                    (Encoding.ASCII.GetBytes(TokenSettings.SecretKey)),
+                ValidateIssuer = false,
+                ValidateAudience = false
+            };
+        }
+);
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -17,8 +59,12 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
 
 app.Run();
+
+
+

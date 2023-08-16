@@ -1,4 +1,4 @@
-﻿namespace UsuariosApp.Services.Models.AtualizarDados
+﻿namespace UsuariosApp.Application.Models.AtualizarDados
 {
     /// <summary>
     /// Modelo de dados para a resposta do serviço de atualização de dados de conta do usuário

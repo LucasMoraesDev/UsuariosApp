@@ -1,4 +1,4 @@
-﻿namespace UsuariosApp.Services.Models.RecuperarSenha
+﻿namespace UsuariosApp.Application.Models.RecuperarSenha
 {
     /// <summary>
     /// Modelo de dados para a resposta do serviço de recuperação de senha do usuário
