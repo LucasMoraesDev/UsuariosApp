@@ -19,6 +19,9 @@ namespace UsuariosApp.Domain.Interfaces.Services
         Usuario RecuperarSenha(string email);
 
         //método para atualizar os dados do usuário
-        bool AtualizarDados(Guid? id, string nome, string senha);
+        Usuario AtualizarDados(string? email, string nome, string senha);
     }
 }
+
+
+

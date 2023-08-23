@@ -74,12 +74,39 @@ namespace UsuariosApp.Application.Services
 
         public RecuperarSenhaResponseModel RecuperarSenha(RecuperarSenhaRequestModel model)
         {
-            throw new NotImplementedException();
+            //enviando para a camada de domínio
+            var usuario = _usuarioDomainService?.RecuperarSenha(model.Email);
+
+            //montando os dados de resposta
+            var response = new RecuperarSenhaResponseModel
+            {
+                Id = usuario.Id,
+                Nome = usuario.Nome,
+                Email = usuario.Email,
+                DataHoraRecuperacaoDeSenha = DateTime.Now
+            };
+
+            return response;
         }
 
-        public AtualizarDadosResponseModel AtualizarDados(AtualizarDadosRequestModel model)
+        public AtualizarDadosResponseModel AtualizarDados(AtualizarDadosRequestModel model, string email)
         {
-            throw new NotImplementedException();
+            //executar a atualização de dados do usuário no domínio
+            var usuario = _usuarioDomainService?.AtualizarDados(email, model.Nome, model.Senha);
+
+            //montando os dados de resposta
+            var response = new AtualizarDadosResponseModel
+            {
+                Id = usuario.Id,
+                Nome = usuario.Nome,
+                Email = usuario.Email,
+                DataHoraAlteracao = DateTime.Now
+            };
+
+            return response;
         }
     }
 }
+
+
+

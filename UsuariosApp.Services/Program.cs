@@ -3,11 +3,13 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using UsuariosApp.Application.Interfaces;
 using UsuariosApp.Application.Services;
+using UsuariosApp.Domain.Interfaces.Messages;
 using UsuariosApp.Domain.Interfaces.Repositories;
 using UsuariosApp.Domain.Interfaces.Security;
 using UsuariosApp.Domain.Interfaces.Services;
 using UsuariosApp.Domain.Services;
 using UsuariosApp.Infra.Data.Repositories;
+using UsuariosApp.Messages.Services;
 using UsuariosApp.Security.Services;
 using UsuariosApp.Security.Settings;
 
@@ -25,8 +27,10 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddTransient<IUsuarioAppService, UsuarioAppService>();
 builder.Services.AddTransient<IUsuarioDomainService, UsuarioDomainService>();
 builder.Services.AddTransient<IUsuarioRepository, UsuarioRepository>();
+builder.Services.AddTransient<IUsuarioMessage, UsuarioMessageProducer>();
 builder.Services.AddTransient<IHistoricoAtividadeRepository, HistoricoAtividadeRepository>();
 builder.Services.AddTransient<ITokenSecurity, TokenSecurity>();
+builder.Services.AddHostedService<UsuarioMessageConsumer>();
 
 //mapear as configurações de autenticação do projeto
 builder.Services.AddAuthentication(
@@ -65,6 +69,9 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
+//definição de classe pública
+public partial class Program { }
 
 
 

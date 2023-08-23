@@ -22,6 +22,9 @@ namespace UsuariosApp.Application.Interfaces
         RecuperarSenhaResponseModel RecuperarSenha(RecuperarSenhaRequestModel model);
 
         //método para a API atualizar os dados de um usuário
-        AtualizarDadosResponseModel AtualizarDados(AtualizarDadosRequestModel model);
+        AtualizarDadosResponseModel AtualizarDados(AtualizarDadosRequestModel model, string email);
     }
 }
+
+
+

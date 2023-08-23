@@ -1,9 +1,13 @@
-﻿
+﻿using Bogus;
+using FluentAssertions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UsuariosApp.Application.Models.RecuperarSenha;
+using UsuariosApp.Domain.Entities;
+using UsuariosApp.Tests.Helpers;
 using Xunit;
 
 namespace UsuariosApp.Tests.Facts
@@ -13,16 +17,44 @@ namespace UsuariosApp.Tests.Facts
     /// </summary>
     public class RecuperarSenhaFact
     {
-        [Fact(Skip = "Não implementado.")]
+        [Fact]
         public void RecuperarSenha_Returns_Ok()
         {
-            //TODO
+            //criando um usuário no sistema..
+            var criarContaFact = new CriarContaFact();
+            var usuario = criarContaFact.CriarConta_Returns_Ok();
+
+            //dados que serão enviados para a recuperação da senha
+            var request = new RecuperarSenhaRequestModel
+            {
+                Email = usuario.Email,
+            };
+
+            //executando uma requisição POST para cadastrar o usuário
+            var response = TestHelper.CreateClient().PostAsync("/api/usuarios/recuperar-senha",
+                TestHelper.CreateContent(request)).Result;
+
+            //comparar o resultado obtido com o resultado esperado
+            response.StatusCode.Should().Be(System.Net.HttpStatusCode.OK);
         }
 
-        [Fact(Skip = "Não implementado.")]
+        [Fact]
         public void RecuperarSenha_Returns_BadRequest()
         {
-            //TODO
+            var faker = new Faker("pt_BR");
+
+            //dados que serão enviados para a recuperação da senha
+            var request = new RecuperarSenhaRequestModel
+            {
+                Email = faker.Internet.Email(),
+            };
+
+            //executando uma requisição POST para cadastrar o usuário
+            var response = TestHelper.CreateClient().PostAsync("/api/usuarios/recuperar-senha",
+                TestHelper.CreateContent(request)).Result;
+
+            //comparar o resultado obtido com o resultado esperado
+            response.StatusCode.Should().Be(System.Net.HttpStatusCode.BadRequest);
         }
     }
 }
