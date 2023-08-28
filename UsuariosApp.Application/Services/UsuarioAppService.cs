@@ -33,8 +33,8 @@ namespace UsuariosApp.Application.Services
                 Nome = model.Nome,
                 Email = model.Email,
                 Senha = model.Senha,
-                DataHoraCriacao = DateTime.Now.ToString("dd/MM/yyyy"),
-                DataHoraUltimaAlteracao = DateTime.Now.ToString("dd/MM/yyyy")
+                DataHoraCriacao = DateTime.Now,
+                DataHoraUltimaAlteracao = DateTime.Now
             };
 
             //realizando o cadastro do usuário
@@ -46,7 +46,7 @@ namespace UsuariosApp.Application.Services
                 Id = usuario.Id,
                 Nome = usuario.Nome,
                 Email = usuario.Email,
-                DataHoraCriacao = DateTime.Parse(usuario.DataHoraCriacao)
+                DataHoraCriacao = usuario.DataHoraCriacao
             };
 
             return response;
